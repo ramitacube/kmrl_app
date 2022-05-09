@@ -19,8 +19,8 @@ class ExpansionContainer extends StatelessWidget {
           ? Container()
           : Container(
               margin: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.1,
-                  right: MediaQuery.of(context).size.width * 0.1,
+                  left: MediaQuery.of(context).size.width * 0.05,
+                  right: MediaQuery.of(context).size.width * 0.05,
                   top: MediaQuery.of(context).size.width * 0.05),
               decoration: BoxDecoration(
                   color: kPrimaryColor,
@@ -33,8 +33,8 @@ class ExpansionContainer extends StatelessWidget {
                         padding: EdgeInsets.only(
                             left: 15, right: 15, top: 15, bottom: 10),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25)),
-                        child: KmrlIcons.userPic(),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: KmrlIcons.userPicBig(),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,24 +77,15 @@ class ExpansionContainer extends StatelessWidget {
                             });
                           },
                           child: Text(
-                              controller.contractList[0].materialNo.toString(),
+                              "You have ${controller.contractList.length} Active location.",
                               style: Theme.of(context)
                                   .textTheme
                                   .headline4!
                                   .copyWith(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white)),
+                                      color: darkBlueColor)),
                         ),
-                        subtitle: Text(
-                            controller.contractList[0].spaceLocation ?? '',
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle2!
-                                .copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w300,
-                                    color: textgreyColor)),
                         trailing: Container(
                           height: 20,
                           width: 20,
@@ -115,39 +106,36 @@ class ExpansionContainer extends StatelessWidget {
                               itemCount: controller.contractList.length,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
-                                return Offstage(
-                                  offstage: index < 1,
-                                  child: ListTile(
-                                      onTap: () {
-                                        Get.toNamed(Routes.LEASE, arguments: {
-                                          "material_no": controller
-                                              .contractList[index].materialNo
-                                              .toString()
-                                        });
-                                      },
-                                      title: Text(
-                                          controller
-                                              .contractList[index].materialNo
-                                              .toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline4!
-                                              .copyWith(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white)),
-                                      subtitle: Text(
-                                          controller.contractList[index]
-                                                  .spaceLocation ??
-                                              '',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle2!
-                                              .copyWith(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w300,
-                                                  color: textgreyColor))),
-                                );
+                                return ListTile(
+                                    onTap: () {
+                                      Get.toNamed(Routes.LEASE, arguments: {
+                                        "material_no": controller
+                                            .contractList[index].materialNo
+                                            .toString()
+                                      });
+                                    },
+                                    title: Text(
+                                        controller
+                                            .contractList[index].spaceLocation
+                                            .toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline4!
+                                            .copyWith(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white)),
+                                    subtitle: Text(
+                                        controller
+                                            .contractList[index].materialNo
+                                            .toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2!
+                                            .copyWith(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w300,
+                                                color: textgreyColor)));
                               }),
                         ],
                       ),

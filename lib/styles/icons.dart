@@ -15,7 +15,7 @@ class KmrlIcons {
     );
   }
 
-  static Widget userPic({double size = 36}) {
+  static Widget userPic({double size = 15}) {
     return Image.asset(
       'assets/images/user.png',
     );
@@ -23,7 +23,8 @@ class KmrlIcons {
 
   static Widget userPicBig({double size = 36}) {
     return Image.asset(
-      'assets/images/userBig.png',
+      'assets/images/user.png',
+      width: size,
     );
   }
 

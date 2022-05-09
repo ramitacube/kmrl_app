@@ -35,8 +35,8 @@ class _StatePend extends State<WaterPendingCard> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(
-          left: MediaQuery.of(context).size.width * 0.08,
-          right: MediaQuery.of(context).size.width * 0.1,
+          left: MediaQuery.of(context).size.width * 0.05,
+          right: MediaQuery.of(context).size.width * 0.05,
           top: MediaQuery.of(context).size.width * 0.05),
       decoration: BoxDecoration(
         color: Colors.white,

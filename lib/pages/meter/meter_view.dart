@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kmrl_connect_to_business/pages/bottomNav/bottomnavBar.dart';
+import 'package:intl/intl.dart';
 import 'package:kmrl_connect_to_business/routes/app_routes.dart';
 import 'package:kmrl_connect_to_business/styles/colors.dart';
 import 'package:kmrl_connect_to_business/styles/icons.dart';
 import 'package:kmrl_connect_to_business/widgets/header_widget.dart';
-import 'package:kmrl_connect_to_business/widgets/invoice/paidInvoice.dart';
 import 'package:kmrl_connect_to_business/widgets/invoice/pendingInvoiceCard.dart';
 import 'package:kmrl_connect_to_business/widgets/subHeader.dart';
 
@@ -17,10 +16,11 @@ class MeterView extends GetView<MeterController> {
   MeterView({required this.disableBack}) {
     Get.put(MeterController());
   }
+
   @override
   Widget build(BuildContext context) {
+    print(controller);
     return Scaffold(
-        key: controller.waterScaffoldKey,
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         // bottomNavigationBar: BottomNavBar(),
@@ -68,42 +68,31 @@ class MeterView extends GetView<MeterController> {
                   )
                 ],
               ),
-              PendingInvoiceCard(
-                title: 'KMT4769D',
-                subTitle: 'Due on 14 Nov 2021',
-                onTap: () {},
-                color: darkRedColor,
-                invoiceType: 'Overdue',
-                date: '14 Nov 2021',
-                dueAmount: '625.00',
-              ),
-              PendingInvoiceCard(
-                title: 'WYV10098',
-                subTitle: 'Processing, Due on 05 Nov 2021',
-                onTap: () {},
-                color: darkRedColor,
-                invoiceType: '',
-                date: '05 Dec 2021',
-                dueAmount: '625.00',
-              ),
-              PaidInvoiceCard(
-                  title: 'WYV10076',
-                  subTitle: 'on 04 Oct 2021',
-                  onTap: () {},
-                  color: lightGreenColor,
-                  invoiceType: 'Paid',
-                  date: '21 Sep 2021',
-                  dueAmount: '686.00',
-                  paidExpanded: controller.paidExpanded),
-              PaidInvoiceCard(
-                  title: 'WYV10054',
-                  subTitle: 'on 21 Sep 2021',
-                  onTap: () {},
-                  color: lightGreenColor,
-                  invoiceType: 'Paid',
-                  date: '21 Sep 2021',
-                  dueAmount: '675.00',
-                  paidExpanded: controller.paidExpanded),
+              ListView.builder(
+                  itemCount: controller.invoiceAll.length,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    final bill_date_parse = DateFormat("yyyy-mm-dd")
+                        .parse(controller.invoiceAll[index].date_of_entry);
+                    final bill_date =
+                        DateFormat("dd-mm-yyyy").format(bill_date_parse);
+
+                    final due_d = DateFormat("yyyy-mm-dd")
+                        .parse(controller.invoiceAll[index].date_of_entry)
+                        .add(Duration(days: 10));
+                    final due_date = DateFormat("dd-mm-yyyy").format(due_d);
+                    return PendingInvoiceCard(
+                        subTitle: controller.invoiceAll[index].name,
+                        title: controller.invoiceAll[index].name,
+                        onTap: () {},
+                        color: Colors.green,
+                        dueAmount:
+                            "${controller.invoiceAll[index].invoiced_amount}",
+                        billing_date: bill_date,
+                        due_date: "$due_date",
+                        invoiceType: controller.invoiceAll[index].reading_type);
+                  })
             ],
           ),
         ));

@@ -10,7 +10,8 @@ class PendingInvoiceCard extends StatefulWidget {
     required this.title,
     required this.onTap,
     required this.color,
-    required this.date,
+    required this.billing_date,
+    required this.due_date,
     required this.dueAmount,
     required this.invoiceType,
     this.onExpansionChanged,
@@ -20,7 +21,8 @@ class PendingInvoiceCard extends StatefulWidget {
   final VoidCallback onTap;
   final Color color;
   final String invoiceType;
-  final String date;
+  final String billing_date;
+  final String due_date;
   final String dueAmount;
   final onExpansionChanged;
 
@@ -57,9 +59,12 @@ class _StatePend extends State<PendingInvoiceCard> {
           height: 40,
           width: 40,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(40), color: kPrimaryColor),
+              borderRadius: BorderRadius.circular(40),
+              color: widget.invoiceType == 'Electricity'
+                  ? Colors.yellow
+                  : Colors.blue),
           child: Center(
-            child: Text('L',
+            child: Text(widget.invoiceType == 'Electricity' ? "E" : "W",
                 style: Theme.of(context).textTheme.headline4!.copyWith(
                     fontSize: 30,
                     color: Colors.white,
@@ -71,17 +76,13 @@ class _StatePend extends State<PendingInvoiceCard> {
                 .textTheme
                 .headline4!
                 .copyWith(fontWeight: FontWeight.bold)),
-        subtitle: Row(
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBox(context, color: widget.color),
-            Text(
-                widget.invoiceType != ''
-                    ? ' ${widget.date}'
-                    : 'Processing, Done on ${widget.date}',
-                style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12,
-                    color: lightGreenColor)),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: buildBox(context, color: widget.color),
+            ),
           ],
         ),
         trailing: Container(
@@ -103,18 +104,52 @@ class _StatePend extends State<PendingInvoiceCard> {
                   padding: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.width * 0.05,
                       vertical: MediaQuery.of(context).size.width * 0.05),
-                  child: Row(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(flex: 2, child: Container()),
-                      Text(
-                        '₹ ${widget.dueAmount}',
-                        style: Theme.of(context).textTheme.headline4!.copyWith(
-                            fontWeight: FontWeight.w400,
-                            color: darkBlueColor,
-                            fontSize: 18),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Text(
+                            widget.invoiceType != ''
+                                ? 'Billing Date: ${widget.billing_date}'
+                                : 'Processing, Done on ${widget.billing_date}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2!
+                                .copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12,
+                                    color: lightGreenColor)),
                       ),
-                      Expanded(child: Container()),
-                      HalfPay(onPressed: () {}, text: 'PAY NOW')
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: Text(
+                            widget.invoiceType != ''
+                                ? 'Due Date: ${widget.due_date}'
+                                : 'Processing, Done on ${widget.due_date}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2!
+                                .copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12,
+                                    color: lightGreenColor)),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '₹ ${widget.dueAmount}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline4!
+                                .copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: darkBlueColor,
+                                    fontSize: 18),
+                          ),
+                        ],
+                      ),
                     ],
                   ))
               : SizedBox.shrink(),

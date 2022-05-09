@@ -39,7 +39,7 @@ class InvoiceController extends BaseController {
       return "";
     }
     var formated = DateFormat("yyyy-mm-dd").parse(date);
-    return DateFormat("dd-MMM-yy").format(formated);
+    return DateFormat("dd-mm-yyyy").format(formated);
   }
 
   formatMonth(String? date) {

@@ -33,7 +33,7 @@ class ApiClient {
       final String res = response.body;
       final int statusCode = response.statusCode;
 
-      if (statusCode < 200 || statusCode > 400 || json == null) {
+      if (statusCode < 200 || statusCode > 400) {
         _errorHandler?.onError(
             message: "Error fetching data from server", code: statusCode);
         return null;
@@ -69,7 +69,7 @@ class ApiClient {
         .then((http.Response response) {
       final String res = response.body;
       final int statusCode = response.statusCode;
-      if (statusCode < 200 || statusCode > 400 || json == null) {
+      if (statusCode < 200 || statusCode > 400) {
         _errorHandler?.onError(
             message: "Error fetching data from server", code: statusCode);
         return null;
@@ -98,7 +98,7 @@ class ApiClient {
       final String res = response.body;
 
       final int statusCode = response.statusCode;
-      if (statusCode < 200 || statusCode > 400 || json == null) {
+      if (statusCode < 200 || statusCode > 400) {
         _errorHandler?.onError(
             message: "Error fetching data from server", code: statusCode);
         return null;

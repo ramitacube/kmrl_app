@@ -5,14 +5,22 @@ import 'package:kmrl_connect_to_business/styles/colors.dart';
 import 'package:kmrl_connect_to_business/styles/icons.dart';
 
 class LeaseWidget extends StatelessWidget {
-  const LeaseWidget(
-      {Key? key,
-      required this.leaseData,
-      required this.onTapLease,
-      required this.onTapInvoice})
-      : super(key: key);
+  const LeaseWidget({
+    Key? key,
+    required this.leaseData,
+    required this.onTapLease,
+    required this.onTapInvoice,
+    required this.onTapElectricity,
+    required this.onTapWater,
+    required this.onTapPayments,
+    required this.onTapBalance,
+  }) : super(key: key);
   final VoidCallback onTapLease;
   final VoidCallback onTapInvoice;
+  final VoidCallback onTapElectricity;
+  final VoidCallback onTapWater;
+  final VoidCallback onTapPayments;
+  final VoidCallback onTapBalance;
   final LeaseData leaseData;
   @override
   Widget build(BuildContext context) {
@@ -32,8 +40,7 @@ class LeaseWidget extends StatelessWidget {
         ],
       ),
       child: ExpansionTile(
-        initiallyExpanded: Get.arguments != null &&
-            leaseData.materialNo == Get.arguments["material_no"],
+        initiallyExpanded: false,
         leading: Container(
             height: 40,
             width: 40,
@@ -69,70 +76,40 @@ class LeaseWidget extends StatelessWidget {
           ),
         ),
         children: [
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                InkWell(
-                  onTap: onTapLease,
-                  child: Column(
-                    children: [
-                      KmrlIcons.lease(),
-                      Text('Contract'),
-                      Text('Details')
-                    ],
-                  ),
-                ),
-                InkWell(
-                  onTap: onTapInvoice,
-                  //() {
-                  //   Get.toNamed(Routes.INVOICE, arguments: leaseData.name);
-                  // },
-                  child: Column(
-                    children: [
-                      KmrlIcons.invoice(),
-                      Text('Invoices'),
-                    ],
-                  ),
-                ),
-                Column(
-                  children: [
-                    KmrlIcons.payment(),
-                    Text('Payments'),
-                  ],
-                ),
-              ],
-            ),
+          Column(
+            children: [
+              ListTile(
+                onTap: onTapLease,
+                leading: KmrlIcons.lease(),
+                title: Text("Contract Details"),
+              ),
+              ListTile(
+                onTap: onTapInvoice,
+                leading: KmrlIcons.invoice(),
+                title: Text("Rental Invoice"),
+              ),
+              ListTile(
+                onTap: onTapElectricity,
+                leading: KmrlIcons.bulb(),
+                title: Text("Electricity Bill"),
+              ),
+              ListTile(
+                onTap: onTapWater,
+                leading: KmrlIcons.water(),
+                title: Text("Water Bill"),
+              ),
+              ListTile(
+                onTap: onTapPayments,
+                leading: KmrlIcons.payment(),
+                title: Text("Payments"),
+              ),
+              ListTile(
+                onTap: onTapBalance,
+                leading: KmrlIcons.balance(),
+                title: Text("Balance & History"),
+              ),
+            ],
           ),
-          Container(
-            margin: EdgeInsets.only(bottom: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  children: [
-                    KmrlIcons.bulb(),
-                    Text('Electricity'),
-                    Text('Bills'),
-                  ],
-                ),
-                Column(
-                  children: [
-                    KmrlIcons.water(),
-                    Text('Water'),
-                    Text('Bills'),
-                  ],
-                ),
-                Column(
-                  children: [
-                    KmrlIcons.balance(),
-                    Text('Balance &'),
-                    Text('History'),
-                  ],
-                ),
-              ],
-            ),
-          )
         ],
       ),
     );

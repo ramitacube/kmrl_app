@@ -83,6 +83,13 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 Get.toNamed(Routes.HOME);
               }),
           DrawerTile(
+              title: 'Notification',
+              leading: Icon(Icons.notifications),
+              onTapped: () {
+                Get.back();
+                Get.toNamed(Routes.HOME);
+              }),
+          DrawerTile(
               title: 'Lease Accounts',
               leading: KmrlIcons.lease(),
               onTapped: () {

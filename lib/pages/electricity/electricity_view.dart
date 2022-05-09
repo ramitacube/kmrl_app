@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:kmrl_connect_to_business/routes/app_routes.dart';
 import 'package:kmrl_connect_to_business/styles/colors.dart';
 import 'package:kmrl_connect_to_business/styles/icons.dart';
@@ -19,7 +20,6 @@ class ElectricityView extends GetView<ElectricityController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: controller.scaffoldKey,
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         appBar: PreferredSize(
@@ -37,23 +37,24 @@ class ElectricityView extends GetView<ElectricityController> {
                 subTitle: '2 Active Connections',
                 image: KmrlIcons.bulbBig(),
               ),
-              ElectricityPendingCard(
-                title: '157757006020',
-                subTitle: 'Due on 16 Nov 2021',
-                color: darkRedColor,
-                invoiceType: 'Overdue',
-                date: '05 Dec 2021',
-                month: '12 2021',
-                dueAmount: '4,025.00',
-              ),
-              ElectricityPaidCard(
-                  title: '1154325006186',
-                  subTitle: 'on 05 Dec 2021',
-                  color: lightGreenColor,
-                  invoiceType: 'Paid',
-                  date: '21 Nov 2021',
-                  dueAmount: '4,056.00',
-                  month: '11 2021'),
+              ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: controller.invoiceAll.length,
+                  itemBuilder: (context, index) {
+                    final due_d = DateFormat("yyyy-mm-dd")
+                        .parse(controller.invoiceAll[index].date_of_entry)
+                        .add(Duration(days: 10));
+                    final due_date = DateFormat("dd-mm-yyyy").format(due_d);
+                    return ElectricityPendingCard(
+                        subTitle: controller.invoiceAll[index].name,
+                        title: controller.invoiceAll[index].name,
+                        month: "May",
+                        date: due_date,
+                        dueAmount:
+                            "${controller.invoiceAll[index].invoiced_amount}",
+                        invoiceType: "Pending");
+                  })
             ],
           ),
         ));

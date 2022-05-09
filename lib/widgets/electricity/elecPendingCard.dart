@@ -9,7 +9,6 @@ class ElectricityPendingCard extends StatefulWidget {
     required this.subTitle,
     required this.title,
     required this.month,
-    required this.color,
     required this.date,
     required this.dueAmount,
     required this.invoiceType,
@@ -18,7 +17,6 @@ class ElectricityPendingCard extends StatefulWidget {
   final String title;
   final String subTitle;
   final String month;
-  final Color color;
   final String invoiceType;
   final String date;
   final String dueAmount;
@@ -35,8 +33,8 @@ class _StatePend extends State<ElectricityPendingCard> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(
-          left: MediaQuery.of(context).size.width * 0.08,
-          right: MediaQuery.of(context).size.width * 0.1,
+          left: MediaQuery.of(context).size.width * 0.05,
+          right: MediaQuery.of(context).size.width * 0.05,
           top: MediaQuery.of(context).size.width * 0.05),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -123,7 +121,7 @@ class _StatePend extends State<ElectricityPendingCard> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        buildBox(context, color: widget.color),
+                        buildBox(context),
                         Padding(
                           padding: EdgeInsets.only(top: 8.0),
                           child: Text(
@@ -188,7 +186,7 @@ class _StatePend extends State<ElectricityPendingCard> {
             margin: EdgeInsets.only(
                 right: MediaQuery.of(context).size.width * 0.02),
             decoration: BoxDecoration(
-                color: color, borderRadius: BorderRadius.circular(15)),
+                color: Colors.black, borderRadius: BorderRadius.circular(15)),
             child: Text('${widget.invoiceType}',
                 style: Theme.of(context).textTheme.bodyText2!.copyWith(
                     fontSize: 10,

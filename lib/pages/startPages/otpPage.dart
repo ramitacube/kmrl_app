@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:kmrl_connect_to_business/pages/startPages/login_controller.dart';
 import 'package:kmrl_connect_to_business/styles/colors.dart';
@@ -36,16 +37,13 @@ class OTPVerifyView extends GetView<LoginController> {
               child: RichText(
                   text: TextSpan(
                       text:
-                          'Please enter the 6 digit code we send to registered email id ',
+                          'Please enter the 6 digit code we send to your registered ',
                       style: Theme.of(context)
                           .textTheme
                           .bodyText2
                           ?.copyWith(fontWeight: FontWeight.w300),
                       children: [
-                    TextSpan(
-                        text: 'r*****v**@gmail.com ',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    TextSpan(text: 'and your mobile number'),
+                    TextSpan(text: 'mobile number '),
                     TextSpan(
                         text: "${controller.getMobileMasked()}",
                         style: TextStyle(fontWeight: FontWeight.bold)),

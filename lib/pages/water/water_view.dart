@@ -19,7 +19,6 @@ class WaterView extends GetView<WaterController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: controller.waterScaffoldKey,
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         // bottomNavigationBar: BottomNavBar(),
@@ -41,23 +40,22 @@ class WaterView extends GetView<WaterController> {
                   child: KmrlIcons.waterBig(),
                 ),
               ),
-              WaterPendingCard(
-                title: 'KMT/4769/D',
-                subTitle: 'Due on 14 Nov 2021',
-                color: darkRedColor,
-                invoiceType: 'Overdue',
-                date: '05 Dec 2021',
-                month: '12 2021',
-                dueAmount: '625.00',
-              ),
-              WaterPaidCard(
-                  title: 'NEM/7085/D',
-                  subTitle: 'on 15 Oct 2021',
-                  color: lightGreenColor,
-                  invoiceType: 'Paid',
-                  date: '21 Nov 2021',
-                  dueAmount: '665.00',
-                  month: '11 2021'),
+              ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: controller.invoiceAll.length,
+                  itemBuilder: (context, index) {
+                    return WaterPendingCard(
+                      subTitle: "Test",
+                      title: controller.invoiceAll[index].name,
+                      month: "May",
+                      color: Colors.blue,
+                      date: controller.invoiceAll[index].date_of_entry,
+                      dueAmount:
+                          "${controller.invoiceAll[index].invoiced_amount}",
+                      invoiceType: "Water",
+                    );
+                  })
             ],
           ),
         ));

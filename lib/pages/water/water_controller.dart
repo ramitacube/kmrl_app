@@ -1,25 +1,47 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:kmrl_connect_to_business/models/electricity_modal.dart';
+import 'package:kmrl_connect_to_business/models/meter_modal.dart';
+import 'package:kmrl_connect_to_business/models/meter_modal.dart';
+import 'package:kmrl_connect_to_business/models/water_modal.dart';
+import 'package:kmrl_connect_to_business/models/water_modal.dart';
+import 'package:kmrl_connect_to_business/models/water_modal.dart';
+import 'package:kmrl_connect_to_business/models/water_modal.dart';
+import 'package:kmrl_connect_to_business/models/water_modal.dart';
+import 'package:kmrl_connect_to_business/models/water_modal.dart';
+import 'package:kmrl_connect_to_business/network/base_controller.dart';
+import 'package:kmrl_connect_to_business/network/endpoints.dart';
 
-class WaterController extends GetxController {
-  final GlobalKey<ScaffoldState> waterScaffoldKey =
-      new GlobalKey<ScaffoldState>();
+class WaterController extends BaseController {
+  List<WaterList> invoiceAll = [];
   final bool expanded = false;
   final bool paidExpanded = false;
+  final storage = FlutterSecureStorage();
+  var filterFromLease;
   @override
-  void onInit() async {
-    super.onInit();
+  Future<void> onInit() async {
+    await super.onInit();
+    filterFromLease = Get.arguments;
+    getPendingInvoices();
   }
 
-  @override
-  void onReady() async {
-    super.onReady();
-  }
+  Future<void> getPendingInvoices() async {
+    var name = await storage.read(key: "name");
+    print(name);
+    await Future.delayed(Duration(milliseconds: 100));
+    showLoading();
 
-  @override
-  void onClose() {
-    super.onClose();
+    var filters = filterFromLease == null
+        ? '&filters=[["customer","=","$name"]]'
+        : '&filters=[["material_no","=","$filterFromLease"]]';
+    var res = await apiClient.get("${EndPoints.getWaterMeterReading}&$filters");
+    if (res != null) {
+      var salesData = WaterModel.fromJson(res);
+      invoiceAll = salesData.data;
+      update();
+    }
+    hideLoading();
   }
 
   formatDate(String? date) {
@@ -27,7 +49,7 @@ class WaterController extends GetxController {
       return "";
     }
     var formated = DateFormat("yyyy-mm-dd").parse(date);
-    return DateFormat("dd-MMM-yy").format(formated);
+    return DateFormat("dd-mm-yyyy").format(formated);
   }
 
   formatMonth(String? date) {

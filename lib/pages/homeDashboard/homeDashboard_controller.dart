@@ -33,10 +33,11 @@ class HomeDashboardController extends BaseController {
   Future<void> getPendingInvoices(var cName) async {
     await Future.delayed(Duration(milliseconds: 100));
     showLoading();
-    String pendingInvoicefilter =
-        'filters=[["customer","=","$cName"],["status","=","Overdue"]]';
-    var res = await apiClient
-        .get("${EndPoints.salesInvoicePending}&$pendingInvoicefilter");
+    String pendingInvoicefilter = 'filters=[["customer","=","$cName"]]';
+    String pendingOrFilter =
+        'or_filter=[["status","=","Overdue"],["status","=","Active"]]';
+    var res = await apiClient.get(
+        "${EndPoints.salesInvoicePending}&$pendingInvoicefilter&$pendingOrFilter");
     print("INVOICE==${EndPoints.salesInvoicePending}");
     if (res != null) {
       var salesData = SalesInvoiceModel.fromJson(res);
@@ -48,7 +49,7 @@ class HomeDashboardController extends BaseController {
 
   Future<void> getContractList(var cName) async {
     String filter =
-        '&filters=[["status","=","Active"],["party_name","=","$cName"]]';
+        '&filters=[["party_name","=","$cName"], ["status","=","Active"]]';
     await Future.delayed(Duration(milliseconds: 100));
     showLoading();
 

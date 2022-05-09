@@ -13,6 +13,7 @@ abstract class Routes {
   static const PAYMENT = '/payment';
   static const BALANCE = '/balance';
   static const ELECTRICITY = '/electricity';
+  static const ELECTRICITY_SORTED = '/electricitySorted';
   static const WATER = '/water';
   static const METER = '/meter';
   static const HELPDESK = '/helpdesk';

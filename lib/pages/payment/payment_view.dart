@@ -58,7 +58,10 @@ class PaymentsView extends GetView<PaymentController> {
                           onTap: () {},
                           color: yellowColor,
                           invoiceType: '',
-                          date: controller.formatDate(invoiceData.postingDate),
+                          billing_date:
+                              controller.formatDate(invoiceData.postingDate),
+                          due_date:
+                              controller.formatDate(invoiceData.postingDate),
                           dueAmount: invoiceData.paidAmount,
                         );
                       }

@@ -39,7 +39,7 @@ class SharedPreferenceHelper {
         print("MOBILE==$_mobile");
         _name = (await _sharedPreference.read(key: "name")) ?? "";
         _email = (await _sharedPreference.read(key: "email")) ?? "";
-        print("MOBILE==$_name");
+        print("MOBILE==$_email");
         return true;
       }
       return false;

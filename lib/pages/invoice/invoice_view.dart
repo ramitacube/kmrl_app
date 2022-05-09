@@ -34,7 +34,7 @@ class InvoiceView extends GetView<InvoiceController> {
             return Column(
               children: [
                 SubHeaderTitle(
-                  title: 'Invoice Generated',
+                  title: 'Indent Generated',
                   subTitle: '2 Unpaid Invoices',
                   image: KmrlIcons.invoiceBig(),
                 ),
@@ -52,7 +52,7 @@ class InvoiceView extends GetView<InvoiceController> {
                               'Due on ${controller.formatDate(invoiceData.dueDate)}',
                           color: lightGreenColor,
                           invoiceType: 'Paid',
-                          date: controller.formatDate(invoiceData.dueDate),
+                          date: invoiceData.dueDate,
                           month: controller.formatMonth(invoiceData.dueDate),
                           dueAmount: invoiceData.grandTotal,
                         );

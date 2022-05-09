@@ -25,7 +25,7 @@ class LoginController extends BaseController {
   }
 
   String getMobileMasked() {
-    return "+91 ${mobile.substring(0, 2)}******${mobile.substring(7, 9)}";
+    return "+91 ${mobile.substring(0, 2)}******${mobile.substring(7, 10)}";
   }
 
   Future<void> verifyOTP() async {

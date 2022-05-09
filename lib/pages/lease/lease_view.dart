@@ -37,16 +37,17 @@ class LeaseView extends GetView<LeaseController> {
                     itemCount: controller.leastAccountList.length,
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
-                      if (Get.arguments != null &&
-                          controller.leastAccountList[index].materialNo ==
-                              Get.arguments["material_no"]) {
-                        // controller.scrollController.animateTo(
-                        //     80.toDouble() * index,
-                        //     duration: Duration(seconds: 1),
-                        //     curve: Curves.fastOutSlowIn);
-                        controller.scrollController
-                            .jumpTo(80.toDouble() * index);
-                      }
+                      // if (Get.arguments != null &&
+                      //     controller.leastAccountList[index].materialNo ==
+                      //         Get.arguments["material_no"]) {
+                      //   // controller.scrollController.animateTo(
+                      //   //     80.toDouble() * index,
+                      //   //     duration: Duration(seconds: 1),
+                      //   //     curve: Curves.fastOutSlowIn);
+                      //   controller.scrollController
+                      //       .jumpTo(80.toDouble() * index);
+                      // }
+                      print(controller.leastAccountList);
                       return LeaseWidget(
                           leaseData: controller.leastAccountList[index],
                           onTapLease: () {
@@ -54,6 +55,30 @@ class LeaseView extends GetView<LeaseController> {
                             controller.getLeaseDetails(index);
                           },
                           onTapInvoice: () {
+                            Get.toNamed(Routes.INVOICE, arguments: {
+                              "material_no": controller
+                                  .leastAccountList[index].materialNo
+                                  .toString()
+                            });
+                          },
+                          onTapElectricity: () {
+                            Get.toNamed(Routes.ELECTRICITY, arguments: {
+                              "material_no": controller
+                                  .leastAccountList[index].materialNo
+                                  .toString()
+                            });
+                          },
+                          onTapWater: () {
+                            Get.toNamed(Routes.WATER, arguments: {
+                              "material_no": controller
+                                  .leastAccountList[index].materialNo
+                                  .toString()
+                            });
+                          },
+                          onTapPayments: () {
+                            Get.toNamed(Routes.PAYMENT);
+                          },
+                          onTapBalance: () {
                             Get.toNamed(Routes.INVOICE, arguments: {
                               "material_no": controller
                                   .leastAccountList[index].materialNo

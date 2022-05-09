@@ -98,7 +98,7 @@ class InvoiceList {
   InvoiceList.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     outstandingAmount = json['outstanding_amount'].toString();
-    contactMobile = json['contact_mobile'];
+    contactMobile = json['contact_mobile'].toString();
     dueDate = json['due_date'];
     grandTotal = json['grand_total'].toString();
     description = json['description'];
