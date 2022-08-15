@@ -85,6 +85,7 @@ class InvoiceList {
     required this.description,
     required this.itemName,
     required this.status,
+    required this.customer,
   });
   late final String name;
   late final String outstandingAmount;
@@ -94,6 +95,7 @@ class InvoiceList {
   late final String description;
   late final String itemName;
   late final String status;
+  late final String customer;
 
   InvoiceList.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -104,6 +106,7 @@ class InvoiceList {
     description = json['description'];
     itemName = json['item_name'];
     status = json['status'];
+    customer = json['customer'];
   }
 
   Map<String, dynamic> toJson() {
@@ -116,6 +119,7 @@ class InvoiceList {
     _data['description'] = description;
     _data['item_name'] = itemName;
     _data['status'] = status;
+    _data['customer'] = customer;
     return _data;
   }
 }

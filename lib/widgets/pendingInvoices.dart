@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:kmrl_connect_to_business/pages/homeDashboard/homeDashboard_controller.dart';
+import 'package:kmrl_connect_to_business/pages/payment/payment_page.dart';
 import 'package:kmrl_connect_to_business/styles/colors.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PendingInvoicesWidget extends StatelessWidget {
   const PendingInvoicesWidget({
@@ -136,7 +138,6 @@ class PendingInvoicesWidget extends StatelessWidget {
                                     ),
                                     Container(
                                       margin: EdgeInsets.only(top: 5),
-                                      // padding: EdgeInsets.only(bottom: 10),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -170,24 +171,30 @@ class PendingInvoicesWidget extends StatelessWidget {
                                             onTap: () {
                                               debugPrint('PAY');
                                             },
-                                            child: Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: w * 0.05,
-                                                  vertical: h * 0.01),
-                                              decoration: BoxDecoration(
-                                                  color: lightGreenColor,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10)),
-                                              child: Text('PAY',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyText2!
-                                                      .copyWith(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: darkBlueColor,
-                                                      )),
+                                            child: TextButton(
+                                              onPressed: () async {
+                                                var url =
+                                                    "https://pg.kochimetro.org/?custName=${i.customer}&amount=${i.outstandingAmount}&invoiceNo=${i.name}";
+                                                if (await canLaunchUrl(
+                                                    Uri.parse(url))) {
+                                                  await launchUrl(
+                                                          Uri.parse(url))
+                                                      .then((value) => print(
+                                                          "See here: $value"));
+                                                } else {
+                                                  throw 'Could not launch https://www.google.com';
+                                                }
+                                              },
+                                              style: ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all<
+                                                              Color>(
+                                                          lightGreenColor)),
+                                              child: Text(
+                                                "PAY",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
                                             ),
                                           ),
                                         ],

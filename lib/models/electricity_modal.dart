@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class ElectricityModel {
   ElectricityModel({
     required this.data,

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class MeterReadingModel {
   MeterReadingModel({
     required this.data,

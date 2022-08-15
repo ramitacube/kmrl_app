@@ -37,7 +37,7 @@ class EndPoints {
 
 class Fields {
   static const String PENDING_INVOINCE_FIELD =
-      'fields=["name","status","due_date","posting_date","outstanding_amount","contact_mobile","due_date","grand_total","`tabSales Invoice Item`.description","`tabSales Invoice Item`.item_name","`tabSales Invoice Item`.description"]';
+      'fields=["name","status","due_date","posting_date","outstanding_amount","contact_mobile","due_date","grand_total","`tabSales Invoice Item`.description","`tabSales Invoice Item`.item_name","`tabSales Invoice Item`.description", "customer"]';
   // 'fields=["name","status","due_date","posting_date","outstanding_amount","rounded_total","`tabSales Invoice Item`.item_name","`tabSales Invoice Item`.description"]';
   static const String GET_CUSTOMER_FIELDS = 'fields=["name","email_id"]';
 

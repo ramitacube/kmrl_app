@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kmrl_connect_to_business/network/shared_preference_helper.dart';
+import 'package:kmrl_connect_to_business/pages/payment/refund_policy.dart';
 import 'package:kmrl_connect_to_business/routes/app_routes.dart';
 import 'package:kmrl_connect_to_business/styles/icons.dart';
 import 'package:kmrl_connect_to_business/widgets/smartWidgets/drawerTile.dart';
@@ -113,6 +114,13 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               onTapped: () {
                 Get.back();
                 Get.toNamed(Routes.PAYMENT);
+              }),
+          DrawerTile(
+              title: 'Refund Policy',
+              leading: KmrlIcons.payment(),
+              onTapped: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => RefundPolicy()));
               }),
           DrawerTile(
               title: 'Electricity',
