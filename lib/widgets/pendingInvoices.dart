@@ -59,7 +59,7 @@ class PendingInvoicesWidget extends StatelessWidget {
                               Container(
                                 decoration: BoxDecoration(
                                   color: kLightPrimaryColor,
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: BorderRadius.circular(15),
                                 ),
                                 child: Row(
                                   mainAxisAlignment:
@@ -101,7 +101,8 @@ class PendingInvoicesWidget extends StatelessWidget {
                                   children: [
                                     Padding(
                                       padding: EdgeInsets.only(top: h * 0.01),
-                                      child: Text('${i.itemName}',
+                                      child: Text(
+                                          '${i.itemName} - ${i.description}',
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText2!

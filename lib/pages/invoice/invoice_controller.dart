@@ -25,7 +25,7 @@ class InvoiceController extends BaseController {
     var filters = filterFromLease == null
         ? '&filters=[["customer","=","$name"]]'
         : '&filters=[["material_no","=","$filterFromLease"]]';
-    var res = await apiClient.get("${EndPoints.salesInvoiceAll}$filters");
+    var res = await apiClient.get("${EndPoints.salesInvoiceAll}");
     if (res != null) {
       var salesData = SalesInvoiceModel.fromJson(res);
       invoiceAll = salesData.data;

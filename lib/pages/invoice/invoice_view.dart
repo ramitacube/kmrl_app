@@ -31,6 +31,8 @@ class InvoiceView extends GetView<InvoiceController> {
             )),
         body: SingleChildScrollView(
           child: GetBuilder<InvoiceController>(builder: (controller) {
+            print("Hello");
+            print(controller.invoiceAll);
             return Column(
               children: [
                 SubHeaderTitle(
@@ -45,6 +47,7 @@ class InvoiceView extends GetView<InvoiceController> {
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (contextList, index) {
                       final invoiceData = controller.invoiceAll[index];
+
                       if (controller.invoiceAll[index].status == "Paid") {
                         return InvoicePaidCard(
                           title: invoiceData.name,
